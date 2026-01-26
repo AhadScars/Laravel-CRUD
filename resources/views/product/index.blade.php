@@ -1,56 +1,79 @@
 @include('product.content.header')
 
+<div class="container mt-4">
 
-<div class="container">
-  <div class="text-right">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3>Product List</h3>
+        <a href="product/create" class="btn btn-dark">
+            + Add New Product
+        </a>
+    </div>
 
-    <a href="product/create" class="btn btn-dark mt-2">Add New Product</a>
-  </div>
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Sr No</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Image</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
 
-  <table class="table table-hover mt-2">
-    <thead>
-      <tr>
-        <th scope="col">Sr No</th>
-        <th scope="col">Product Name</th>
-        <th scope="col">Product description</th>
-        <th scope="col">Price</th>
-        <th scope="col">Image</th>
-        <th>
-          Action
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      @foreach ($products as $product)
-        
-      <tr>
-        
-        <td>{{ $loop->index+1 }}</td>
-        <td><a href="product/{{ $product->id }}/show" class="text-dark">{{ $product->name }}</a></td>
-        <td>{{ $product->description }}</td>
-        <td>{{ $product->price }}</td>
-        <td>
-          <img src="productimg/{{ $product->image }}" alt="{{ $product->name }}" width="30px" height="30px" class="rounded-circle">
-        </td>
-        <td>
-          <a href="product/{{ $product->id }}/edit" class="btn btn-dark">Edit</a>
-          <form action="/product/{{ $product->id }}" method="POST" style="display:inline;">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="btn btn-danger">Delete</button>
-          </form>
-          </td>
-      </tr>
-      @endforeach
-    </tbody>
-    
+                <tbody>
+                    @foreach ($products as $product)
+                    <tr>
+                        <td>{{ ($products->currentPage() - 1) * $products->perPage() + $loop->index + 1 }}</td>
 
-  </table>
-  {{ $products->links() }}
+                        <td>
+                            <a href="product/{{ $product->id }}/show" class="fw-semibold text-dark text-decoration-none">
+                                {{ $product->name }}
+                            </a>
+                        </td>
+
+                        <td class="text-muted">
+                            {{ Str::limit($product->description, 40) }}
+                        </td>
+
+                        <td>
+                            <span class="badge bg-success">
+                                ₹ {{ $product->price }}
+                            </span>
+                        </td>
+
+                        <td>
+                            <img src="productimg/{{ $product->image }}"
+                                 width="40"
+                                 height="40"
+                                 class="rounded-circle border"
+                                 alt="{{ $product->name }}">
+                        </td>
+
+                        <td class="text-center">
+                            <a href="product/{{ $product->id }}/edit" class="btn btn-sm btn-outline-dark">
+                                Edit
+                            </a>
+
+                            <form action="/product/{{ $product->id }}" method="POST" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-outline-danger">
+                                    Delete
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        {{ $products->links() }}
+    </div>
 
 </div>
-
-
-</body>
-
-</html>

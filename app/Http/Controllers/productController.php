@@ -7,26 +7,26 @@ use App\Models\product;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-       return view('product.index', ['products'=>product::simplePaginate(5)]); 
-    }
+   public function index(Request $request)
+{
+    $search = $request->search;
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    $products = Product::where(function ($query) use ($search) {
+            $query->where('name', 'like', "%$search%")
+                  ->orWhere('price', 'like', "%$search%");
+        })
+        ->simplePaginate(5)
+        ->appends(['search' => $search]);
+
+    return view('product.index', compact('products', 'search'));
+}
+
     public function create()
     {
         return view('product.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+        public function store(Request $request)
     {
         $request->validate([
             'name'=>'required',
@@ -47,27 +47,21 @@ class ProductController extends Controller
         return redirect('/')->with('success','Product has been added successfully');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        $product = product::where('id',$id)->first();
-        return view('product.show', ['product'=>$product]);
-    }
+   
+        public function show(string $id)
+        {
+            $product = product::where('id',$id)->first();
+            return view('product.show', ['product'=>$product]);
+        }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+   
     public function edit(string $id)
     {
         $product = product::where('id', $id)->first();
         return view('product.edit', ['product' => $product]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    
     public function update(Request $request, string $id)
     {
          $request->validate([
@@ -92,9 +86,7 @@ class ProductController extends Controller
         return redirect('/')->with('success','Product has been updated successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+   
     public function destroy(string $id)
     {
         $product = product::where('id', $id)->first();
