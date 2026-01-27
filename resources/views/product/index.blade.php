@@ -4,9 +4,12 @@
 
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h3>Product List</h3>
+        @auth
         <a href="product/create" class="btn btn-dark">
             + Add New Product
         </a>
+            
+        @endauth
     </div>
 
     <div class="card shadow-sm">
@@ -46,8 +49,8 @@
 
                         <td>
                             <img src="productimg/{{ $product->image }}"
-                                 width="40"
-                                 height="40"
+                                 width="30"
+                                 height="30"
                                  class="rounded-circle border"
                                  alt="{{ $product->name }}">
                         </td>

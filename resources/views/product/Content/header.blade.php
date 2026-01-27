@@ -13,27 +13,54 @@
 
 <body>
 
-  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-  <a class="navbar-brand" href="/">Product</a>
+ <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">Product</a>
 
-  <div class="collapse navbar-collapse">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="/">Home</a>
-      </li>
-    </ul>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-    <form class="form-inline my-2 my-lg-0" method="GET" action="/">
-      <input 
-        class="form-control mr-sm-2" 
-        type="search" 
-        name="search" 
-        placeholder="Search product"
-        value="{{ request('search') }}"
-      >
-      <button class="btn btn-outline-light my-2 my-sm-0" type="submit">
-        Search
-      </button>
-    </form>
-  </div>
+    <div class="collapse navbar-collapse" id="navbarContent">
+
+       
+        <ul class="navbar-nav mr-auto">
+            @auth
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/product/users/profile">
+                         Profile
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                   <form action="/logout" method="post">
+                    @csrf
+                    <button type="submit" class="btn btn-link nav-link">
+                         Logout
+                    </button>
+                   </form>
+                </li>
+            @else
+                <li class="nav-item">
+                    <a class="nav-link" href="/product/users/register">Register</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/product/users/login">Login</a>
+                </li>
+            @endauth
+        </ul>
+
+        <form class="form-inline my-2 my-lg-0" method="GET" action="/">
+            <input
+                class="form-control mr-sm-2"
+                type="search"
+                name="search"
+                placeholder="Search product"
+            >
+            <button class="btn btn-outline-light my-2 my-sm-0" type="submit">
+                Search
+            </button>
+        </form>
+
+    </div>
 </nav>

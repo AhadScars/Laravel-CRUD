@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +28,18 @@ Route::put('product/{id}', [ProductController::class,'update']);
 Route::delete('product/{id}', [ProductController::class,'destroy']);
 
 Route::get('product/{id}/show', [ProductController::class,'show']);
+
+Route::get('/product/users/register',[UserController::class,'create']);
+
+Route::post('/register',[UserController::class,'store']);
+
+Route::post('/logout',[UserController::class,'logout']);
+
+Route::get('/product/users/login',[UserController::class,'login']);
+
+Route::post('/login',[UserController::class,'authenticate']);
+
+Route::get('/product/users/profile',[UserController::class,'profile']);
+
+
+
