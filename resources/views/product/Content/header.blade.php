@@ -1,3 +1,6 @@
+@include('msg')
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,7 +30,7 @@
             @auth
                 <li class="nav-item">
                     <a class="nav-link text-white" href="/product/users/profile">
-                         Profile
+                        {{ auth()->user()->name }}
                     </a>
                 </li>
 

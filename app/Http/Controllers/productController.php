@@ -13,7 +13,8 @@ class ProductController extends Controller
 
     $products = Product::where(function ($query) use ($search) {
             $query->where('name', 'like', "%$search%")
-                  ->orWhere('price', 'like', "%$search%");
+                  ->orWhere('price', 'like', "%$search%")
+                  ->orWhere('description', 'like', "%$search%");
         })
         ->simplePaginate(5)
         ->appends(['search' => $search]);

@@ -22,7 +22,9 @@
                         <th>Description</th>
                         <th>Price</th>
                         <th>Image</th>
+                        @auth
                         <th class="text-center">Action</th>
+                        @endauth
                     </tr>
                 </thead>
 
@@ -55,6 +57,8 @@
                                  alt="{{ $product->name }}">
                         </td>
 
+                        @auth
+                            
                         <td class="text-center">
                             <a href="product/{{ $product->id }}/edit" class="btn btn-sm btn-outline-dark">
                                 Edit
@@ -67,7 +71,9 @@
                                     Delete
                                 </button>
                             </form>
+                            
                         </td>
+                        @endauth
                     </tr>
                     @endforeach
                 </tbody>
