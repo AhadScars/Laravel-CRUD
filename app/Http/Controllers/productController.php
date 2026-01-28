@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\product;
+use App\Models\Product;
 
 class ProductController extends Controller
 {
@@ -19,12 +19,12 @@ class ProductController extends Controller
         ->simplePaginate(5)
         ->appends(['search' => $search]);
 
-    return view('product.index', compact('products', 'search'));
+    return view('CRUD.product.index', compact('products', 'search'));
 }
 
     public function create()
     {
-        return view('product.create');
+        return view('CRUD.product.create');
     }
 
         public function store(Request $request)
@@ -39,7 +39,7 @@ class ProductController extends Controller
         $imagename = time().'.'.$request->image->extension();
         $request->image->move(public_path('productimg'),$imagename);
 
-        $product = new product();
+        $product = new Product();
         $product->name = $request->name;
         $product->description = $request->description;
         $product->price = $request->price;
@@ -51,15 +51,15 @@ class ProductController extends Controller
    
         public function show(string $id)
         {
-            $product = product::where('id',$id)->first();
-            return view('product.show', ['product'=>$product]);
+            $product = Product::where('id',$id)->first();
+            return view('CRUD/product.show', ['product'=>$product]);
         }
 
    
     public function edit(string $id)
     {
-        $product = product::where('id', $id)->first();
-        return view('product.edit', ['product' => $product]);
+        $product = Product::where('id', $id)->first();
+        return view('CRUD/product.edit', ['product' => $product]);
     }
 
     
@@ -72,7 +72,7 @@ class ProductController extends Controller
             'image'=>'mimes:jpg,png,jpeg'
         ]);
 
-        $product = product::find($id);
+        $product = Product::find($id);
         
         if ($request->hasFile('image')) {
             $imagename = time().'.'.$request->image->extension();
@@ -90,7 +90,7 @@ class ProductController extends Controller
    
     public function destroy(string $id)
     {
-        $product = product::where('id', $id)->first();
+        $product = Product::where('id', $id)->first();
         if ($product) {
             $product->delete();
         }

@@ -7,29 +7,28 @@ use App\Http\Controllers\ProductController;
 
 Route::get('/', [ProductController::class, 'index']);
 
-Route::get('product/create', [ProductController::class, 'create']);
+Route::get('CRUD/product/create', [ProductController::class, 'create'])->middleware('auth');
 
-Route::post('product/store', [ProductController::class, 'store']);
+Route::post('CRUD/product/store', [ProductController::class, 'store'])->middleware('auth');
 
-Route::get('product/{id}/edit', [ProductController::class, 'edit']);
+Route::get('CRUD/product/{id}/edit', [ProductController::class, 'edit'])->middleware('auth');
 
-Route::put('product/{id}', [ProductController::class, 'update']);
+Route::put('CRUD/product/{id}', [ProductController::class, 'update'])->middleware('auth');
 
-Route::delete('product/{id}', [ProductController::class, 'destroy']);
+Route::delete('product/{id}', [ProductController::class, 'destroy'])->middleware('auth');
 
-Route::get('product/{id}/show', [ProductController::class, 'show']);
+Route::get('CRUD/product/{id}/show', [ProductController::class, 'show']);
 
-Route::get('/product/users/register', [UserController::class, 'create']);
+Route::get('CRUD/users/register', [UserController::class, 'create'])->middleware('guest');
 
 Route::post('/register', [UserController::class, 'store']);
 
-Route::post('/logout', [UserController::class, 'logout']);
+Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
 
-Route::get('/product/users/login', [UserController::class, 'login']);
+Route::get('CRUD/users/login', [UserController::class, 'login'])->name('login')->middleware(middleware: 'guest');
 
 Route::post('/login', [UserController::class, 'authenticate']);
 
-Route::get('/product/users/profile', [UserController::class, 'profile']);
-
+Route::get('/CRUD/users/profile', [UserController::class, 'profile']);
 
 
