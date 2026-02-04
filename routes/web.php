@@ -25,10 +25,15 @@ Route::post('/register', [UserController::class, 'store']);
 
 Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
 
-Route::get('CRUD/users/login', [UserController::class, 'login'])->name('login')->middleware(middleware: 'guest');
+Route::get('CRUD/users/login', [UserController::class, 'login'])->name('login')->middleware('guest');
 
 Route::post('/login', [UserController::class, 'authenticate']);
 
-Route::get('/CRUD/users/profile', [UserController::class, 'profile']);
+Route::get('/CRUD/users/profile', [UserController::class, 'profile'])->middleware('auth');
+
+Route::get('/CRUD/users/manage', [UserController::class, 'manage'])->middleware('auth');
+
+
+
 
 
