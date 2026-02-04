@@ -58,7 +58,7 @@
                         </td>
 
                         
-                            
+                        @if(auth()->check() && $product->user_id === auth()->id())
                         <td class="text-center">
                             <a href="CRUD/product/{{ $product->id }}/edit" class="btn btn-sm btn-outline-dark">
                                 Edit
@@ -71,7 +71,7 @@
                                     Delete
                                 </button>
                             </form>
-                            
+                            @endif
                         </td>
                         
                     </tr>
