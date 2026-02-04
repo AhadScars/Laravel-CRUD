@@ -143,7 +143,6 @@ The application comes with 20 sample products pre-loaded through the ProductSeed
 The following features are planned for future releases:
 
 ### 🎯 Upcoming Features
-- 🔍 **Search & Filter** - Search products by name, price range, and category
 - 📁 **Product Categories** - Organize products by categories
 - 👤 **User Authentication** - User login, registration, and profile management
 - 🔐 **Security Features** - Two-factor authentication, role-based access control
